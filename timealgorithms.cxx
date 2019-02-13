@@ -28,13 +28,13 @@ extern int QuickSortCompareCount;
 extern int QuickSortMemoryCount;
 
 int main(int argc, char** argv) {
-    void InsertionSort(std::vector<int>* numbers);
-    void MergeSort(std::vector<int>* numbers);
-    void MergeSortRecurse(std::vector<int>* numbers, int i, int k);
-    void Merge(std::vector<int>* numbers, int i, int j, int k);
-    void QuickSort(std::vector<int>* numbers);
-    int Partition(std::vector<int>* numbers, int i, int k);
-    int countComp(std::vector<int>* numbers);
+//     void InsertionSort(std::vector<int>* numbers);
+//     void MergeSort(std::vector<int>* numbers);
+//     void MergeSortRecurse(std::vector<int>* numbers, int i, int k);
+//     void Merge(std::vector<int>* numbers, int i, int j, int k);
+//     void QuickSort(std::vector<int>* numbers);
+//     int Partition(std::vector<int>* numbers, int i, int k);
+//     int countComp(std::vector<int>* numbers);
     using json = nlohmann::json;
 
     string str(argv[1]);
