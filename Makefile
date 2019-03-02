@@ -1,32 +1,35 @@
 CC=g++
 DEV=-Wall -g -std=c++14
 OPT=-O3 -std=c++14
-
+FLAGS=$(DEV)
 JSON=json.hpp
 
-all: consistentresultverification sortedverification timealgorithms
+all: buildheap.exe createteams.exe createteamdata.exe createheapoperationdata.exe
 
-consistentresultverification: consistentresultverification.cxx
-	g++ -std=c++14 consistentresultverification.cxx -o consistentresultverification
+priorityqueue.o: priorityqueue.cpp priorityqueue.h
+	$(CC) $(FLAGS) -c priorityqueue.cpp
 
-sortedverification: sortedverification.cxx
-	g++ -std=c++14 sortedverification.cxx -o sortedverification
+teamdata.o: teamdata.cpp teamdata.h $(JSON)
+	$(CC) $(FLAGS) -c teamdata.cpp
 
-timealgorithms: timealgorithms.cxx insertionsort.o mergesort.o quicksort.o
-	g++ -std=c++14 timealgorithms.cxx insertionsort.o mergesort.o quicksort.o -o timealgorithms
+buildheap.exe: buildheap.cxx priorityqueue.o $(JSON)
+	$(CC) $(FLAGS) buildheap.cxx priorityqueue.o -o buildheap.exe
 
-insertionsort.o: insertionsort.cpp insertionsort.h json.hpp
-	g++ -std=c++14 -c insertionsort.cpp
+createheapoperationdata.exe: createheapoperationdata.cxx priorityqueue.o $(JSON)
+	$(CC) $(FLAGS) createheapoperationdata.cxx priorityqueue.o -o createheapoperationdata.exe
 
-mergesort.o: mergesort.cpp mergesort.h json.hpp
-	g++ -std=c++14 -c mergesort.cpp
+createteamdata.exe: createteamdata.cxx $(JSON)
+	$(CC) $(FLAGS) createteamdata.cxx -o createteamdata.exe
 
-quicksort.o: quicksort.cpp quicksort.h json.hpp
-	g++ -std=c++14 -c quicksort.cpp
+createteams.exe: createteams.cxx priorityqueue.o teamdata.o $(JSON)
+	$(CC) $(FLAGS) createteams.cxx priorityqueue.o teamdata.o -o createteams.exe
 
 clean:
 	rm -f *.o
-	rm -rf *.dSYM
-	rm -f consistentresultverification
-	rm -f sortedverification
-	rm -f timealgorithms
+	rm -f *.o3
+	rm -f *.exe
+	rm -rf *.exe.dSYM
+
+update:
+	make clean
+	make all
